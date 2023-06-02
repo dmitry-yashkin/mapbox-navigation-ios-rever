@@ -154,7 +154,7 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
                                 locale: locale)
     }
     
-    @objc func pauseSpeechAndPlayReroutingDing(notification: NSNotification) {
+    @objc open func pauseSpeechAndPlayReroutingDing(notification: NSNotification) {
         // Ducking and unducking is not performed when re-routing sound playback is switched off
         // or when voice is muted in global settings.
         guard playRerouteSound && !NavigationSettings.shared.voiceMuted else {
@@ -217,7 +217,7 @@ public extension RouteVoiceControllerDelegate {
 
 extension RouteVoiceController: AVAudioPlayerDelegate {
     
-    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    open func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         // Ducking and unducking is not performed when re-routing sound playback is switched off
         // or when voice is muted in global settings.
         guard playRerouteSound && !NavigationSettings.shared.voiceMuted else {

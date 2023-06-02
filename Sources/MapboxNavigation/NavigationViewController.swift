@@ -277,14 +277,14 @@ open class NavigationViewController: UIViewController, NavigationStatusPresenter
         navigationService.router
     }
     
-    lazy var overviewButton: FloatingButton = {
+    lazy public var overviewButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(image: .overviewImage)
         floatingButton.borderWidth = Style.defaultBorderWidth
         
         return floatingButton
     }()
     
-    lazy var muteButton: FloatingButton = {
+    lazy public var muteButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(image: .volumeUpImage,
                                                     selectedImage: .volumeOffImage)
         floatingButton.borderWidth = Style.defaultBorderWidth
@@ -292,7 +292,7 @@ open class NavigationViewController: UIViewController, NavigationStatusPresenter
         return floatingButton
     }()
     
-    lazy var reportButton: FloatingButton = {
+    lazy public var reportButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(image: .feedbackImage)
         floatingButton.borderWidth = Style.defaultBorderWidth
         
