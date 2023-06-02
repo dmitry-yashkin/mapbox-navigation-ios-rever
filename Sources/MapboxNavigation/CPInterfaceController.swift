@@ -13,7 +13,15 @@ public extension CPInterfaceController {
      */
     func safePopTemplate(animated: Bool) {
         guard templates.count > 1 else { return }
-
-        popTemplate(animated: animated)
+        
+        if #available(iOS 14.0, *) {
+            popTemplate(animated: animated) { (success, error) in
+                if let error = error {
+                    print("CarPlay error: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            popTemplate(animated: animated)
+        }
     }
 }
