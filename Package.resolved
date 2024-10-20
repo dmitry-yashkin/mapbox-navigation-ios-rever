@@ -57,11 +57,11 @@
       },
       {
         "package": "MapboxMaps",
-        "repositoryURL": "https://github.com/mapbox/mapbox-maps-ios.git",
+        "repositoryURL": "https://github.com/dmitry-yashkin/mapbox-maps-ios-rever.git",
         "state": {
-          "branch": null,
-          "revision": "e3c48af54e28c3fe1eeb7790dd6e26f65a86898d",
-          "version": "10.14.0"
+          "branch": "rever/release-v10.14",
+          "revision": "5ba3ffa5b27eb0f1ecdafc1a274efd0ae286e692",
+          "version": null
         }
       },
       {
