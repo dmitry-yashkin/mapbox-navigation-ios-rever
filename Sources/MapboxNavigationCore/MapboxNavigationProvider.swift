@@ -5,8 +5,10 @@ import MapboxCommon
 import MapboxCommon_Private
 import MapboxNavigationNative_Private
 
-public final class MapboxNavigationProvider {
+open class MapboxNavigationProvider {
     let multiplexLocationClient: MultiplexLocationClient
+
+    public var urlCalculator: URLCalculator
 
     public var skuTokenProvider: SkuTokenProvider {
         billingHandler.skuTokenProvider()
@@ -23,7 +25,7 @@ public final class MapboxNavigationProvider {
 
     private var _sharedRouteVoiceController: RouteVoiceController?
     @MainActor
-    public var routeVoiceController: RouteVoiceController {
+    open var routeVoiceController: RouteVoiceController {
         if let _sharedRouteVoiceController {
             return _sharedRouteVoiceController
         } else {
@@ -59,6 +61,7 @@ public final class MapboxNavigationProvider {
         Self.checkInstanceIsUnique()
         self._coreConfig = .init(coreConfig)
         self.multiplexLocationClient = MultiplexLocationClient(source: coreConfig.locationSource)
+        self.urlCalculator = MapboxURLCalculator()
         apply(coreConfig: coreConfig)
         SdkInfoRegistryFactory.getInstance().registerSdkInformation(forInfo: SdkInfo.navigationCore.native)
     }
@@ -307,7 +310,8 @@ extension MapboxNavigationProvider: MapboxNavigation {
             with: .init(
                 source: coreConfig.routingConfig.routingProviderSource,
                 nativeHandlersFactory: nativeHandlersFactory,
-                credentials: .init(coreConfig.credentials.navigation)
+                credentials: .init(coreConfig.credentials.navigation),
+                urlCalculator: urlCalculator
             )
         )
     }

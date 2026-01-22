@@ -323,7 +323,7 @@ open class RouteOptions: DirectionsOptions, @unchecked Sendable {
         self.includesVisualInstructions = matchOptions.includesVisualInstructions
     }
 
-    override var abridgedPath: String {
+    override open var abridgedPath: String {
         return "directions/v5/\(profileIdentifier.rawValue)"
     }
 
