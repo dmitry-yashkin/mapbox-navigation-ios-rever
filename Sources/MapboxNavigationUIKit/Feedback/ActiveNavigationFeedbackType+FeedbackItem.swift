@@ -65,7 +65,7 @@ extension ActiveNavigationFeedbackType {
 
     /// Generates a `FeedbackItem` for a given `ActiveNavigationFeedbackType`
     /// - Returns: A `FeedbackItem` model object used to render UI
-    func generateFeedbackItem() -> FeedbackItem {
+    public func generateFeedbackItem() -> FeedbackItem {
         return FeedbackItem(title: title, image: image, feedbackType: .activeNavigation(self))
     }
 }

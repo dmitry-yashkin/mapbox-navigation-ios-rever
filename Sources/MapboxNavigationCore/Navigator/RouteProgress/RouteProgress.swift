@@ -239,8 +239,13 @@ public struct RouteProgress: RouteProgressRepresentable, Equatable, Sendable {
             return .unknown
         }
 
-        let coordinatesLeftOnStepCount =
-            Int(floor(Double(coordinates.count) * currentLegProgress.currentStepProgress.fractionTraveled))
+        let coordinatesLeftOnStepCount: Int
+        if currentLegProgress.currentStepProgress.fractionTraveled.isFinite {
+            coordinatesLeftOnStepCount = Int(floor(Double(coordinates.count) * currentLegProgress.currentStepProgress.fractionTraveled))
+        } else {
+            coordinatesLeftOnStepCount = 0
+        }
+            
 
         guard coordinatesLeftOnStepCount >= 0 else { return .unknown }
 
