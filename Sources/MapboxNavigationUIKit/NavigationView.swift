@@ -130,7 +130,7 @@ open class NavigationView: UIView {
         }
     }
 
-    lazy var resumeButton: ResumeButton = .forAutoLayout(hidden: true)
+    lazy public var resumeButton: ResumeButton = .forAutoLayout(hidden: true)
 
     var wayNameViewLayoutGuide: UILayoutGuide? {
         didSet {

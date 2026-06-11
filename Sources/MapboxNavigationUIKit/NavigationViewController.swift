@@ -195,14 +195,14 @@ open class NavigationViewController: UIViewController, NavigationStatusPresenter
 
     private var subscriptions: Set<AnyCancelable> = []
 
-    lazy var overviewButton: FloatingButton = {
+    lazy public var overviewButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(image: .overviewImage)
         floatingButton.borderWidth = Style.defaultBorderWidth
 
         return floatingButton
     }()
 
-    lazy var muteButton: FloatingButton = {
+    lazy public var muteButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(
             image: .volumeUpImage,
             selectedImage: .volumeOffImage
@@ -212,7 +212,7 @@ open class NavigationViewController: UIViewController, NavigationStatusPresenter
         return floatingButton
     }()
 
-    lazy var reportButton: FloatingButton = {
+    lazy public var reportButton: FloatingButton = {
         let floatingButton = FloatingButton.rounded(image: .feedbackImage)
         floatingButton.borderWidth = Style.defaultBorderWidth
 

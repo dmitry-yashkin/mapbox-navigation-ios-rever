@@ -7,6 +7,19 @@ struct RoutingProviderConfiguration: Sendable {
     var source: RoutingProviderSource
     var nativeHandlersFactory: NativeHandlersFactory
     var credentials: Credentials
+    var urlCalculator: URLCalculator
+}
+
+public protocol URLCalculator: Sendable {
+    func url(forCalculating options: DirectionsOptions, credentials: Credentials) -> URL
+}
+
+open class MapboxURLCalculator: URLCalculator, @unchecked Sendable {
+    public init() {}
+    
+    open func url(forCalculating options: DirectionsOptions, credentials: Credentials) -> URL {
+        Directions.url(forCalculating: options, credentials: credentials)
+    }
 }
 
 /// Provides alternative access to routing API.
@@ -15,7 +28,7 @@ struct RoutingProviderConfiguration: Sendable {
 /// ``RoutingProviderSource``, ``MapboxRoutingProvider`` will use online and/or onboard routing engines. This may be
 /// used when designing purely online or offline apps, or when you need to provide best possible service regardless of
 /// internet collection.
-public final class MapboxRoutingProvider: RoutingProvider, @unchecked Sendable {
+public class MapboxRoutingProvider: RoutingProvider, @unchecked Sendable {
     /// Initializes a new ``MapboxRoutingProvider``.
     init(with configuration: RoutingProviderConfiguration) {
         self.configuration = configuration
@@ -124,13 +137,14 @@ public final class MapboxRoutingProvider: RoutingProvider, @unchecked Sendable {
             }
         }
     }
-
+    
     private func doRequest<ResponseType: Codable>(options: DirectionsOptions) async -> (Result<
         ResponseType,
         DirectionsError
     >, RouterOrigin) {
-        let uri = Directions.url(forCalculating: options, credentials: configuration.credentials)
-            .removingSKU().absoluteString
+        let uri = configuration.urlCalculator.url(forCalculating: options, credentials: configuration.credentials)
+            .removingSKU()
+            .absoluteString
 
         let (result, origin) = await withCheckedContinuation { continuation in
             let getRouteOptions = GetRouteOptions(timeoutSeconds: nil)
